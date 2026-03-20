@@ -1,0 +1,14 @@
+.env
+__pycache__/
+*.pyc
+output/
+*.mp4
+*.mp3
+*.wav
+.venv/
+dist/
+*.egg-info/
+.ruff_cache/
+token.json
+client_secret*.json
+db.sqlite
