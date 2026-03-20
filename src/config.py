@@ -21,6 +21,8 @@ class Settings(BaseSettings):
     telegram_bot_token: str = ""
     anthropic_api_key: str = ""
     openai_api_key: str = ""
+    openrouter_api_key: str = ""
+    openrouter_model: str = "meta-llama/llama-3.1-8b-instruct"
     elevenlabs_api_key: str = ""
     pexels_api_key: str = ""
     youtube_client_id: str = ""

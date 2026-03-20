@@ -17,10 +17,10 @@ content:
 
 # Provider selection (swap these to change providers)
 providers:
-  script: "claude"       # claude | openai
-  voice: "elevenlabs"    # elevenlabs | google_tts
+  script: "openrouter"   # claude | openai | openrouter
+  voice: "google_tts"    # elevenlabs | google_tts
   visual: "pexels"       # pexels
-  upload: "youtube"      # youtube | tiktok | reels
+  upload: "none"         # youtube | tiktok | reels | none
 
 # Voice settings
 voice:

@@ -16,6 +16,14 @@ def get_script_provider(config: AppConfig) -> ScriptProvider:
         from src.providers.script.openai_provider import OpenAIScriptProvider
 
         return OpenAIScriptProvider(api_key=config.settings.openai_api_key)
+    elif name == "openrouter":
+        from src.providers.script.openai_provider import OpenAIScriptProvider
+
+        return OpenAIScriptProvider(
+            api_key=config.settings.openrouter_api_key,
+            base_url="https://openrouter.ai/api/v1",
+            model=config.settings.openrouter_model,
+        )
     raise ValueError(f"Unknown script provider: {name}")
 
 
@@ -49,8 +57,10 @@ def get_visual_provider(config: AppConfig) -> VisualProvider:
     raise ValueError(f"Unknown visual provider: {name}")
 
 
-def get_upload_provider(config: AppConfig, platform: str | None = None) -> UploadProvider:
+def get_upload_provider(config: AppConfig, platform: str | None = None) -> UploadProvider | None:
     name = platform or config.upload_provider
+    if name == "none":
+        return None
     if name == "youtube":
         from src.providers.upload.youtube import YouTubeUploader
 

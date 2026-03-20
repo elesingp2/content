@@ -21,7 +21,7 @@ class PipelineEngine:
         script_provider: ScriptProvider,
         voice_provider: VoiceProvider,
         visual_provider: VisualProvider,
-        upload_provider: UploadProvider,
+        upload_provider: UploadProvider | None,
     ):
         self.config = config
         self.db = db
@@ -123,6 +123,8 @@ class PipelineEngine:
 
     async def publish(self, idea_id: int, content: GeneratedContent, account=None) -> str:
         """Upload approved video to platform."""
+        if not self.upload:
+            raise RuntimeError("No upload provider configured. Set providers.upload in config.yaml.")
         await self.db.update_idea_status(idea_id, IdeaStatus.UPLOADING)
         try:
             url = await self.upload.upload(

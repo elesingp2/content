@@ -12,8 +12,12 @@ from src.providers.script.claude import SYSTEM_PROMPT
 
 
 class OpenAIScriptProvider(ScriptProvider):
-    def __init__(self, api_key: str):
-        self.client = openai.AsyncOpenAI(api_key=api_key)
+    def __init__(self, api_key: str, base_url: str | None = None, model: str = "gpt-4o"):
+        kwargs: dict = {"api_key": api_key}
+        if base_url:
+            kwargs["base_url"] = base_url
+        self.client = openai.AsyncOpenAI(**kwargs)
+        self.model = model
 
     async def generate_script(
         self,
@@ -41,7 +45,7 @@ Product to naturally plug:
 Remember: the product mention should feel like a natural recommendation, not an ad."""
 
         response = await self.client.chat.completions.create(
-            model="gpt-4o",
+            model=self.model,
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": user_prompt},
